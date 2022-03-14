@@ -1,0 +1,217 @@
+
+CRATE TABLE table_name(
+id INT,
+name VARVHAR(50),
+age INT(10),
+phone VARCHAR(12),
+gender VARCHAR(1)
+);
+
+----------------- data insert in table 
+
+INSERT INTO table_name(column1,column2....)
+VALUES (value1,value2...);
+
+---- multiple data insert 
+
+INSERT INTO table_name(column1,column2....)
+VALUES 
+(value1,value2...),
+(value1,value2...),
+(value1,value2...);
+
+------ constraints--
+
+
+CRATE TABLE table_name(
+id INT NOT NULL UNIQUE,
+name VARVHAR(50) NOT NULL,
+age INT(10) NOT NULL CHECK(age>=18),
+phone VARCHAR(12) NOT NULL,
+gender VARCHAR(1) NOT NULL,
+city VARCHAR(10) NOT NULL DEFAULT 'delhi'
+);
+
+----------------- select data from table 
+
+SELECT * FROM table_name
+WHERE age >= 18;
+
+- ---------------- select data with AND or OR
+
+SELECT * FROM table_name
+WHERE age >= 18 AND age <= 23;
+
+--- ------------ between operator
+
+SELECT * FROM table_name
+WHERE age BETWEEN 18 AND 23;
+
+
+-------------- between operator with NOT
+
+SELECT * FROM table_name
+WHERE age NOT BETWEEN 18 AND 23;
+
+--- like operator 
+LIKE 'a%' start with "a"
+LIKE '%a' end with "a"
+LIKE '%am' have "am" in any position
+LIKE 'a%m' start with "a" and end with "m"
+LIKE '_a%' "a" in the second position
+LIKE '__a%' "a" in the third position
+
+
+SELECT * FROM table_name
+WHERE column_name LIKE'a%';
+
+
+-------------    -primary key 
+
+CRATE TABLE table_name(
+id INT NOT NULL AUTO_INCREMENT,
+name VARVHAR(50) NOT NULL,
+age INT(10) NOT NULL CHECK(age>=18),
+phone VARCHAR(12) NOT NULL,
+gender VARCHAR(1) NOT NULL,
+city VARCHAR(10) NOT NULL,
+PRIMARY KEY(id)
+);
+
+-------  ----    already created table
+ALTER TABLE table_name
+ADD PRIMARY KEY(id);
+
+----------------------- foreign key
+
+CRATE TABLE table_name(
+id INT NOT NULL AUTO_INCREMENT,
+name VARVHAR(50) NOT NULL,
+age INT(10) NOT NULL CHECK(age>=18),
+phone VARCHAR(12) NOT NULL,
+gender VARCHAR(1) NOT NULL,
+city VARCHAR(10) NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY(city) REFERENCES second_table_name(column_name)
+);
+
+
+------
+
+
+------- -----------inner join
+
+SELECT * FROM table1
+INNER JOIN table2
+ON table1.column_name=table2.column_name;
+
+-----------lis name(tempreri name)
+
+SELECT * FROM table1 p
+INNER JOIN table2 c
+ON p.column_name=c.column_name;
+
+SELECT p.id, p.name, p.age,p.phone,p.gender,c.cityname 
+FROM table1 p
+INNER JOIN table2 c
+ON p.column_name=c.column_name;
+
+SELECT p.id, p.name, p.age,p.phone,p.gender,c.cityname 
+FROM table1 p
+INNER JOIN table2 c
+ON p.column_name=c.column_name
+WHERE c.cityname = "agra";
+
+SELECT p.id, p.name, p.age,p.phone,p.gender,c.cityname 
+FROM table1 p
+INNER JOIN table2 c
+ON p.column_name=c.column_name
+WHERE c.cityname = "agra"
+ORDER BY p.name;
+
+
+------ left join
+
+SELECT * FROM table1
+LEFT JOIN table2
+ON table1.column_name=table2.column_name;
+
+SELECT p.id, p.name, p.age,p.phone,p.gender,c.cityname 
+FROM table1 p
+LEFT JOIN table2 c
+ON p.column_name=c.column_name
+WHERE gender ="m"
+ORDER BY P.name;
+
+
+----- right join
+
+
+SELECT * FROM table1
+RIGHT JOIN table2
+ON table1.column_name=table2.column_name;
+
+SELECT p.id, p.name, p.age,p.phone,p.gender,c.cityname 
+FROM table1 p
+RIGHT JOIN table2 c
+ON p.column_name=c.column_name
+WHERE gender ="m"
+ORDER BY P.name;
+
+
+------cross join
+
+
+SELECT * FROM table1
+CROSS JOIN table2;
+
+--- multiple join with inner join
+
+SELECT * FROM table1
+INNER JOIN table2
+ON table1.column_name=table2.column_name;
+INNER JOIN table3
+ON table1.column_name=table3.column_name;
+
+
+----- php validation
+<?php
+$var = 23;
+
+var_dump(filter_var($var, FILTER_VALIDATE_INT));
+
+if(filter_var($var, FILTER_VALIDATE_INT)){
+  echo " $var is int";
+}esle{
+  echo "$var is not int";
+}
+
+?>
+
+
+
+
+
+<?php
+$var = 23;
+
+var_dump(filter_var($var, FILTER_VALIDATE_INT));
+$options = array(
+          "options" => array(
+           "min_range" => 20,
+            "max_range" => 30
+           )
+         );
+
+
+if(filter_var($var, FILTER_VALIDATE_INT,$options)){
+  echo " $var is int";
+}esle{
+  echo "$var is not int";
+}
+
+?>
+
+
+
+------ php function
